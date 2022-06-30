@@ -1,0 +1,20 @@
+{
+    "name": "seChat",
+    "main": "seChat.js",
+    "ignore": [
+        "build",
+        "encoder"
+    ],
+    "packageName": "com.example.seChat",
+    "versionName": "1.0.0",
+    "versionCode": 1,
+    "icon": "res/seChat.jpeg",
+    "optimization": {
+        "removeOpenCv": true,
+        "unusedResources": true
+    },
+    "launchConfig": {
+        "displaySplash": false,
+        "hideLogs": false
+    }
+}

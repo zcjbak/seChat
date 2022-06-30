@@ -1,0 +1,46 @@
+<html>
+    <head>
+        <title>seChat</title>
+        <style type="text/css">
+            * {font-size:20pt;} input {width:120pt;}
+        </style>
+        <script src="crypto-js-4.1.1/crypto-js.js"></script>
+        <script src="crypto-js-4.1.1/aes.js"></script>
+        <script src="index.js"></script>
+    </head>
+    <body>
+        <div>
+            <input type="file" id="imgFile" accept="image/*" />
+            <label>压缩率：<input id="comprate" size="4" style="width:50pt;" value="10"/>%</label>
+            <button onclick="img2B64()">转换图片</button><br/>
+            <img id="img"/><br/>
+            <textarea id="b64" style="width:500pt;height:300pt;"></textarea><br/>
+            <label><input id="isEncrypted" type="checkbox" style="width:10pt;" onclick="window.localStorage.seChatIsEncrypted=this.checked;"/>密钥加密</label> <button onclick="txt2B64()">加密文字</button> <button onclick="B64toTxt()">解密文字</button> <button onclick="cp()">复制结果</button> <button onclick="clr()">清空结果</button>
+        </div>
+        <fieldset style="width:470pt;">
+            <legend>密钥管理</legend>
+            <strong style="color:#ff0000;">*使用密钥加密请先添加名为“-我自己-”的密钥*</strong><br/>
+            <select id="friends">
+                <option value="0000">-选择密钥-</option>
+            </select>
+            <button onclick="delFriend()">删除</button><br/>
+            <label style="color:#ff0000;">备注名：</label><input id="markName"/> 密钥：<input id="aesKey"/> <button onclick="addFriend()">新增</button>
+        </fieldset>
+        <script>
+            window.localStorage.seChatIsEncrypted=="true"?document.getElementById('isEncrypted').checked=true:document.getElementById('isEncrypted').checked=false;
+
+            var friends = document.getElementById('friends');
+            var storage = window.localStorage;
+            for (let i=0, len=storage.length; i<len; i++){
+                let key = storage.key(i);
+                if(key.indexOf("seChat-")==0){
+                    let op = document.createElement("option");
+                    op.value = storage.getItem(key);
+                    op.text = key.substr(7);
+                    friends.appendChild(op);
+                }                
+            }
+
+        </script>
+    </body>
+</html>
